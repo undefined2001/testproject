@@ -1,0 +1,53 @@
+{%extends 'student_base.html' %}
+
+
+{%block main-content%}
+{% for c in complain%}
+<br>
+<section>
+    <div class="card text-center" style = "background: linear-gradient(to top right, #ffffea 0%, #ffcfcf 100%)">
+        <div class="card-header">
+          <ul class="nav nav-pills card-header-pills">
+            {% if c.status == "resolved" %}
+            <li class="nav-item">
+                <button type="button" class="btn btn-success">Resolved</button>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link disabled" href="">By {{c.resolved_by}} </a>
+            </li>
+            
+            {% elif c.status == "pending" %}
+            <li class="nav-item">
+                <button type="button" class="btn btn-warning">Pending</button>
+            </li>
+
+            {% else %}
+            <li class="nav-item">
+                <button type="button" class="btn btn-danger">Rejected</button>
+            </li>
+
+
+
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link disabled" href="">[ Posted on - {{c.datetime}} ]</a>
+              </li>
+            
+          </ul>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{c.tag}}</h5>
+          <p class="card-text">{{c.statement}}</p>
+        
+        </div>
+      </div>
+    </section>
+	
+    {% endfor %}
+
+      
+
+      
+	</section>
+{%endblock main-content%}

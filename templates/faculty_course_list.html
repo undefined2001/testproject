@@ -1,0 +1,29 @@
+{%extends 'faculty_base.html' %}
+{%block main-content%}
+
+<section>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Count</th>
+            <th scope="col">Course Code</th>
+            <th scope="col">Couse Title</th>
+            <th scope="col">Course Credit</th>
+            <th scope="col">Modify</th>
+          </tr>
+        </thead>
+        <tbody>
+            {%for course in courses%}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{course.course_id}}</td>
+            <td>{{course.course_name}}</td>
+            <td>{{course.course_credit}}</td>
+            <td><a href="{% url 'faculty_delete_course' course.id %}" class="btn btn-sm btn-danger">Delete</a></td>
+          </tr>
+        {%endfor%}
+        </tbody>
+      </table>
+
+</section>
+{%endblock main-content%}

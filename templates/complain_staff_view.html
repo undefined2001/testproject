@@ -1,0 +1,50 @@
+{%extends 'staff_base.html' %}
+{%block main-content %}
+
+{% for c in complain %}
+{% if c.status == "pending" %}
+<br>
+<section>
+    <div class="card text-center" style="background: linear-gradient(to top right, #ffffea 0%, #ffcfcf 100%)">
+        <div class="card-header" >
+          <ul class="nav nav-pills card-header-pills">
+            <li class="nav-item">
+
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="cnum" value = "{{c.cnumber}}">
+                    <input type="hidden" name="status" value = "rejected">
+                    <button type="submit" class="btn btn-danger">Reject</button>
+                </form>
+                
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li> -->
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">@{{c.posted_by}} | {{c.datetime}}</a>
+            </li>
+          </ul>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{c.tag}}</h5>
+          <p class="card-text">{{c.statement}}</p>
+
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="cnum" value = "{{c.cnumber}}">
+                <input type="hidden" name="status" value = "resolved">
+                <button type="submit" class="btn btn-primary">Resolve</button>
+            <!-- <a href="#" class="btn btn-primary">Resolve</a> -->
+            </form>
+
+
+
+
+        </div>
+      </div>
+    </section>
+    {% endif %}
+{% endfor %}
+     
+{%endblock main-content %}
