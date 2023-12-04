@@ -1,0 +1,64 @@
+{%extends 'faculty_base.html' %}
+{%block main-content%}
+
+<section>
+    <h1>Request List.</h1>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">Course Code</th>
+                <th scope="col">Faculty</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 
+            {% for request in teacher_requests %}
+            <tr>
+                <th scope="row">{{ request.course }}</th>
+                <td>{{ request.student }}</td>
+                <td>{{ request.request_date }}</td>
+                <td>
+                    <form method="post" action="{% url 'request_list' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="request_id" value="{{ request.id }}">
+                        <input type="hidden" name="action" value="decline">
+                        <button type="submit" class="btn btn-danger">Decline</button>
+                    </form>
+                    <button type="submit" class="btn btn-success">Approve</button>
+                </td>
+            </tr>
+            {% endfor %} -->
+
+            {% for request in teacher_requests %}
+            <tr>
+                <th scope="row">{{ request.course }}</th>
+                <td>{{ request.student }}</td>
+                <td style="display: flex;gap:1em;">
+                    {% if not request.is_approved %}
+                    <form method="post" action="{% url 'request_list' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="request_id" value="{{ request.id }}">
+                        <input type="hidden" name="action" value="decline">
+                        <button type="submit" class="btn btn-danger">Decline</button>
+                    </form>
+
+                    <form method="post" action="{% url 'request_list' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="request_id" value="{{ request.id }}">
+                        <input type="hidden" name="action" value="approve">
+                        <button type="submit" class="btn btn-success">Approve</button>
+                    </form>
+                    {% else %}
+                    <span class="badge badge-success">Approved</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+
+
+        </tbody>
+    </table>
+</section>
+{%endblock main-content%}
